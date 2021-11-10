@@ -1,30 +1,16 @@
 const { app, BrowserWindow, Menu, net } = require("electron");
-const menu = require("./menu");
+const path = require("path");
+const fs = require("fs");
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
+      preload: path.join(__dirname, './preload.js'),
       nodeIntegration: true,
     },
     resizable: false,
   });
   win.loadFile("index.html");
 }
-function abcd() {
-  const request = net.request(
-    ""
-  );
-  request.on("response", (response) => {
-    response.on("data", (chunk) => {
-      console.log(`BODY: ${chunk}`);
-    });
-    response.on("end", () => {
-      console.log("No more data in response.");
-    });
-  });
-  request.end()
-  console.log("hello there");
-}
 app.on("ready", createWindow);
-app.on("ready", abcd);
