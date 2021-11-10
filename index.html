@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+
+<body onload="reload()">
+  <h1>Music</h1>
+  <div class="controls">
+    <button onclick="reload()"></button>
+    <div class="amplitude-play-pause"></div>
+    <div class="amplitude-stop"></div>
+    <div class="amplitude-mute"></div>
+    <input type="range" class="amplitude-volume-slider" />
+    <select name="OutputDevices" id="device-selector">
+      <option value="val" label="test">test</option>
+    </select>
+    <button onclick="myFunction()"></button>
+  </div>
+  <script src="./node_modules/amplitudejs/dist/amplitude.js"></script>
+  <script src="./player.js"></script>
+  <script>
+    function reload() {
+      var mediaDevices = navigator.mediaDevices.enumerateDevices().then((devices) => {
+        console.log(devices)
+        outputdevices = devices.filter(x => { return x.kind == "audiooutput" && x.deviceId != "communications" && x.deviceId != "default" })
+        console.log(outputdevices)
+        e = document.getElementById("device-selector")
+        e.innerHTML = ""
+        for (let index = 0; index < outputdevices.length; index++) {
+          const x = outputdevices[index];
+          x.kind == "audiooutput" && x.deviceId != "communications" && x.deviceId != "default"
+          opt = document.createElement("option")
+          opt.value = x.deviceId
+          opt.text = x.label
+          e.append(opt)
+        }
+      });
+      console.log("i appendededed")
+    }
+    function myFunction() {
+      e = document.getElementById("device-selector")
+      output = e.value
+      var mediaDevices = navigator.mediaDevices.enumerateDevices();
+      // console.log(mediaDevices);
+      audio = new Audio("./music/David_Hilowitz_-_Equilibrium_I_Cello_version.mp3");
+      audio.playbackRate = 1;
+      audio.loop=true
+      audio.setSinkId(output)
+      audio.play()
+    }
+  </script>
+</body>
+
+</html>

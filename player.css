@@ -1,0 +1,26 @@
+.controls .amplitude-play-pause {
+  width: 74px;
+  height: 74px;
+  cursor:pointer;
+}
+
+.controls .amplitude-play-pause.amplitude-paused {
+  background:url('./images/play_arrow_black_24dp.svg');
+  background-size:cover;
+}
+.controls .amplitude-play-pause.amplitude-playing {
+  background:url('./images/pause_black_24dp.svg');
+  background-size:cover;
+}
+
+.controls .amplitude-stop {
+  background:url('./images/stop_black_24dp.svg');
+  background-size:cover;
+}
+
+.controls > div {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: inline-block;
+}
